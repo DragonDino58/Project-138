@@ -1,3 +1,9 @@
+RWX = 0;
+RWY = 0;
+score = 0;
+
+
+
 var paddle2 =10,paddle1=10;
 
 var paddle1X = 10,paddle1Height = 110;
@@ -34,9 +40,26 @@ function modelLoaded(){
   console.log('Model is Loaded!');
 }
 
+function gotPoses(results){
+  if(results.length > 0)
+  {
+    RWX = results[0].pose.rightWrist.x;
+    RWY = results[0].pose.rightWrist.y;
+
+    score = results[0].pose.keypoints[10].score;
+
+  }
+}
 
 function draw(){
   image(video, 0, 0, 700, 600);
+
+if(score > 0.2)
+{
+  fill('#ff0000');
+  stroke('#000000');
+  circle(RWX, RWY, 30);
+}
 
  background(0); 
 
